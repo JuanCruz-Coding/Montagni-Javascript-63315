@@ -1,115 +1,98 @@
-const productos = [
-  { id: 1, nombre: "Manzanas", categoria: "Frutas", stock: 50, precio: 300 },
-  { id: 2, nombre: "Pan Integral", categoria: "Panadería", stock: 30, precio: 500 },
-  { id: 3, nombre: "Leche", categoria: "Lácteos", stock: 20, precio: 1200 },
-  { id: 4, nombre: "Huevos", categoria: "Huevos y derivados", stock: 40, precio: 1600 },
-  { id: 5, nombre: "Arroz", categoria: "Cereales", stock: 100, precio: 800 }
-];
+function iniciarCompra() {
+    const productos = [
+        { id: 1, nombre: "Manzanas", categoria: "Frutas", stock: 50, precio: 300 },
+        { id: 2, nombre: "Pan Integral", categoria: "Panadería", stock: 30, precio: 500 },
+        { id: 3, nombre: "Leche", categoria: "Lácteos", stock: 20, precio: 1200 },
+        { id: 5, nombre: "Arroz", categoria: "Cereales", stock: 100, precio: 800 },
+        { id: 6, nombre: "Naranjas", categoria: "Frutas", stock: 60, precio: 350 },
+        { id: 7, nombre: "Fresas", categoria: "Frutas", stock: 40, precio: 450 },
+        { id: 8, nombre: "Plátanos", categoria: "Frutas", stock: 70, precio: 200 },
+        { id: 9, nombre: "Pan de Centeno", categoria: "Panadería", stock: 25, precio: 600 },
+        { id: 10, nombre: "Croissants", categoria: "Panadería", stock: 15, precio: 700 },
+        { id: 11, nombre: "Baguette", categoria: "Panadería", stock: 20, precio: 400 },
+        { id: 12, nombre: "Yogur", categoria: "Lácteos", stock: 30, precio: 1100 },
+        { id: 13, nombre: "Queso", categoria: "Lácteos", stock: 25, precio: 1800 },
+        { id: 14, nombre: "Mantequilla", categoria: "Lácteos", stock: 20, precio: 1500 },
+        { id: 15, nombre: "Jugo de Naranja", categoria: "Bebidas", stock: 30, precio: 700 },
+        { id: 16, nombre: "Agua Mineral", categoria: "Bebidas", stock: 50, precio: 200 },
+        { id: 17, nombre: "Coca Cola", categoria: "Bebidas", stock: 40, precio: 250 },
+        { id: 18, nombre: "Quinoa", categoria: "Cereales", stock: 50, precio: 900 },
+        { id: 19, nombre: "Avena", categoria: "Cereales", stock: 80, precio: 600 },
+        { id: 20, nombre: "Cebada", categoria: "Cereales", stock: 40, precio: 700 }
+    ];
 
-let carrito = [];
+    let mensajeCategorias = obtenerCategorias(productos).join("\n");
+    let carrito = [];
+    let seleccionUsuario = pedirNumero("Ingrese:\n1 - Agregar al carrito.\n2 - Filtrar por categoria.\n3 - Finalizar compra.\n0 - Salir.");
 
-function mostrarListaPrecios() {
-  let lista = "Lista de Precios:\n";
-  productos.forEach(producto => {
-      lista += `${producto.nombre} - $${producto.precio}\n`;
-  });
-  alert(lista);
+    while (seleccionUsuario !== 0) {
+        if (seleccionUsuario === 1) {
+            let idProducto = pedirNumero("Seleccione el producto por su ID:\n" + listarProductos(productos));
+            carrito = agregarAlCarrito(carrito, productos, idProducto);
+        } else if (seleccionUsuario === 2) {
+            let categoria = prompt("Ingrese una categoria para ver sus productos:\n" + mensajeCategorias).toLowerCase();
+            let productosFiltrados = filtrarProductos(productos, "categoria", categoria);
+            console.log(productosFiltrados);
+            if (productosFiltrados.length > 0) {
+                let idProducto = pedirNumero("Seleccione un producto:\n" + listarProductos(productosFiltrados));
+                carrito = agregarAlCarrito(carrito, productosFiltrados, idProducto);
+            } else {
+                alert("No se encontraron productos en esta categoría.");
+            }
+        } else if (seleccionUsuario === 3) {
+            let total = carrito.reduce((acumulador, producto) => acumulador + producto.subtotal, 0);
+            alert("Total de su compra: $" + total + " - Gracias por elegirnos.");
+        } else {
+            alert("Opción no válida. Por favor, intente de nuevo.");
+        }
+        seleccionUsuario = pedirNumero("Ingrese:\n1 - Agregar al carrito\n2 - Filtrar por categoría\n3 - Finalizar compra\n0 - Salir.");
+    }
 }
 
-function agregarProductoCarrito() {
-  const productoId = parseInt(prompt("Ingrese el ID del producto que desea agregar al carrito:"));
-  const producto = productos.find(p => p.id === productoId);
-  
-  if (producto) {
-      const cantidad = parseInt(prompt(`Ingrese la cantidad de ${producto.nombre} que desea agregar:`));
-      if (cantidad > 0 && cantidad <= producto.stock) {
-          carrito.push({ ...producto, cantidad });
-          alert(`${producto.nombre} agregado al carrito con cantidad: ${cantidad}`);
-      } else {
-          alert(`Cantidad no válida. Stock disponible: ${producto.stock}`);
-      }
-  } else {
-      alert("Producto no encontrado.");
-  }
+iniciarCompra();
+
+function pedirNumero(mensaje) {
+    return Number(prompt(mensaje));
 }
 
-function eliminarProductoCarrito() {
-  const productoId = parseInt(prompt("Ingrese el ID del producto que desea eliminar del carrito:"));
-  const index = carrito.findIndex(p => p.id === productoId);
-
-  if (index > -1) {
-      carrito.splice(index, 1);
-      alert("Producto eliminado del carrito.");
-  } else {
-      alert("Producto no encontrado en el carrito.");
-  }
+function listarProductos(lista) {
+    return lista.map(el => el.id + " - " + el.nombre + " - $" + el.precio).join("\n");
 }
 
-function verCarrito() {
-  if (carrito.length === 0) {
-      alert("El carrito está vacío.");
-      return;
-  }
+function agregarAlCarrito(carrito, productos, idProducto) {
+    let productoSeleccionado = productos.find(producto => producto.id === idProducto);
+    if (!productoSeleccionado) {
+        alert("Producto no encontrado.");
+        return carrito;
+    }
 
-  let contenidoCarrito = "Carrito:\n";
-  let total = 0;
-  carrito.forEach(item => {
-      contenidoCarrito += `${item.nombre} - $${item.precio} x ${item.cantidad} = $${(item.precio * item.cantidad).toFixed(2)}\n`;
-      total += item.precio * item.cantidad;
-  });
-  contenidoCarrito += `\nTotal: $${total.toFixed(2)}`;
-  alert(contenidoCarrito);
+    let indiceProductoSeleccionado = carrito.findIndex(producto => producto.id === idProducto);
+    if (indiceProductoSeleccionado !== -1) {
+        carrito[indiceProductoSeleccionado].unidades++;
+        carrito[indiceProductoSeleccionado].subtotal = carrito[indiceProductoSeleccionado].precio * carrito[indiceProductoSeleccionado].unidades;
+    } else {
+        carrito.push({
+            id: productoSeleccionado.id,
+            nombre: productoSeleccionado.nombre,
+            precio: productoSeleccionado.precio,
+            unidades: 1,
+            subtotal: productoSeleccionado.precio
+        });
+    }
+    console.log(carrito);
+    return carrito;
 }
 
-function finalizarCompra() {
-  if (carrito.length === 0) {
-      alert("El carrito está vacío. Agregue productos para finalizar la compra.");
-      return;
-  }
-
-  let total = 0;
-  carrito.forEach(item => total += item.precio * item.cantidad);
-  alert(`Gracias por su compra! El total es $${total.toFixed(2)}`);
-  carrito = []; // Vaciar el carrito después de la compra
+function obtenerCategorias(productos) {
+    let categorias = [];
+    productos.forEach(producto => {
+        if (!categorias.includes(producto.categoria)) {
+            categorias.push(producto.categoria);
+        }
+    });
+    return categorias;
 }
 
-function menu() {
-  let opcion = "";
-
-  do {
-      opcion = prompt(
-          "Seleccione una opción:\n" +
-          "1. Ver lista de precios\n" +
-          "2. Agregar producto al carrito\n" +
-          "3. Eliminar producto del carrito\n" +
-          "4. Ver carrito\n" +
-          "5. Finalizar compra\n" +
-          "6. Salir"
-      );
-
-      switch (opcion) {
-          case "1":
-              mostrarListaPrecios();
-              break;
-          case "2":
-              agregarProductoCarrito();
-              break;
-          case "3":
-              eliminarProductoCarrito();
-              break;
-          case "4":
-              verCarrito();
-              break;
-          case "5":
-              finalizarCompra();
-              break;
-          case "6":
-              alert("Gracias por usar nuestra tienda.");
-              break;
-          default:
-              alert("Opción no válida. Por favor, intente de nuevo.");
-      }
-  } while (opcion !== "6");
+function filtrarProductos(productos, nombrePropiedad, valorPropiedad) {
+    return productos.filter(producto => producto[nombrePropiedad].toLowerCase() === valorPropiedad);
 }
-
-menu();
