@@ -1,0 +1,48 @@
+/* ********** Custom Properties ********** */
+:root{
+    --first-color:rgb(244, 237, 124);
+    --first-alpha-color:rgb(255, 209, 0);
+    --second-color:rgb(160, 161, 164);
+    --second-alpha-color:rgb(117, 120, 123);
+    --third-color:rgb(252, 119, 7);
+
+    --bg-color:rgb(255, 209, 0);
+    
+    --link-color:rgb(252, 119, 7);
+}
+
+/* ********** Reset Styles ********** */
+body{
+    font-family: sans-serif,arial;
+}
+
+/* ********** Bootstrap Styles ********** */
+
+
+/* ********** My Styles ********** */
+#main-section{
+    margin-top: 3rem;
+}
+
+/* // X-Small devices (portrait phones, less than 576px)
+// No media query for 'xs' since this is the default in Bootstrap */
+
+/* // Small devices (landscape phones, 576px and up) */
+@media (min-width: 576){
+    
+}
+
+/* // Large device (desktops, 992px and up) */
+@media (min-width: 576){
+
+}
+
+/* // X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 576){
+
+}
+
+/* // XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 576){
+
+}
