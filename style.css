@@ -1,48 +1,106 @@
 /* ********** Custom Properties ********** */
-:root{
-    --first-color:rgb(244, 237, 124);
-    --first-alpha-color:rgb(255, 209, 0);
-    --second-color:rgb(160, 161, 164);
-    --second-alpha-color:rgb(117, 120, 123);
-    --third-color:rgb(252, 119, 7);
-
-    --bg-color:rgb(255, 209, 0);
-    
-    --link-color:rgb(252, 119, 7);
+:root {
+    --first-color: rgb(244, 237, 124);
+    --first-alpha-color: rgb(255, 209, 0);
+    --second-color: rgb(220, 220, 221);
+    --second-alpha-color: rgb(117, 120, 123);
+    --third-color: rgb(252, 119, 7);
 }
 
 /* ********** Reset Styles ********** */
-body{
-    font-family: sans-serif,arial;
+body {
+    font-family: "Kanit", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    background-color: var(--second-color);
 }
 
-/* ********** Bootstrap Styles ********** */
-
-
-/* ********** My Styles ********** */
-#main-section{
-    margin-top: 3rem;
+/* ********** Bootstrap Custom Styles ********** */
+.nav-bar {
+    background-color: var(--third-color) !important;
 }
 
-/* // X-Small devices (portrait phones, less than 576px)
-// No media query for 'xs' since this is the default in Bootstrap */
-
-/* // Small devices (landscape phones, 576px and up) */
-@media (min-width: 576){
-    
+.navbar-brand {
+    font-family: "Kanit", sans-serif;
+    font-weight: 700;
+    font-style: normal;
 }
 
-/* // Large device (desktops, 992px and up) */
-@media (min-width: 576){
-
+.carousel-inner {
+    max-height: 600px; /* Ajusta la altura según tus necesidades */
+    overflow: hidden;
 }
 
-/* // X-Large devices (large desktops, 1200px and up) */
-@media (min-width: 576){
-
+.carousel-item img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
 }
 
-/* // XX-Large devices (larger desktops, 1400px and up) */
-@media (min-width: 576){
+/* ********** Custom Card Styles ********** */
+.card {
+    box-shadow: 2px 2px 23px -10px rgba(0, 0, 0, 0.75);
+    width: 14rem;
+    position: relative;
+}
 
+/* ********** Badge Styles ********** */
+.badge.bg-warning {
+    margin-bottom: 5px;
+    display: block;
+    text-align: center;
+}
+
+.card-body .badge {
+    min-height: 20px; /* Ajusta según el alto del aviso */
+    margin-bottom: 5px;
+}
+
+/* Stock Notification Styles */
+.stock-aviso {
+    position: absolute;
+    bottom: 10px;
+    font-size: 0.8rem;
+    padding: 2px 6px;
+    color: white;
+    border-radius: 5px;
+}
+
+.stock-aviso:first-of-type {
+    left: 10px;
+    background-color: #ffc107; /* Color para pocas unidades */
+}
+
+.stock-aviso:last-of-type {
+    right: 10px;
+    background-color: #dc3545; /* Color para sin stock */
+}
+
+/* ********** Media Queries ********** */
+/* X-Small devices (portrait phones, less than 576px) */
+/* No media query for 'xs' since this is the default in Bootstrap */
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+    /* Agregar estilos específicos aquí */
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    /* Agregar estilos específicos aquí */
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    /* Agregar estilos específicos aquí */
+}
+
+/* X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    /* Agregar estilos específicos aquí */
+}
+
+/* XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) {
+    /* Agregar estilos específicos aquí */
 }
