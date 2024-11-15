@@ -27,7 +27,7 @@ body {
 }
 
 .carousel-inner {
-    max-height: 600px; /* Ajusta la altura según tus necesidades */
+    max-height: 400px; /* Ajusta la altura según tus necesidades */
     overflow: hidden;
 }
 
