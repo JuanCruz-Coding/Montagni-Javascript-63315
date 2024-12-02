@@ -96,6 +96,7 @@ function agregarAlCarrito(id) {
         }
     }
 
+    guardarEnStorage("carrito", carrito);
     renderCarrito();
     actualizarCantidadCarrito();
 }
@@ -164,3 +165,6 @@ function buscarProducto() {
     renderProductos(productosFiltrados);
 }
 
+function guardarEnStorage(clave,valor) {
+    localStorage.setItem(clave, JSON.stringify(valor))
+}
